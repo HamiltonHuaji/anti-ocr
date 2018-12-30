@@ -25,29 +25,70 @@
         context.fillStyle = $("fontcolor").innerHTML;
         context.strokeStyle = $("fontcolor").innerHTML;
         
-	n = txt.length/5;
-        n2 = txt.length * fontSize;
+	n = txt.length/4;
+        n2 = Math.pow(txt.length,1.5)*1.5;
         for (var i = 0; i < n2; i++) {
             x = random(0,canvas.width);
             y = random(0,canvas.height);
             context.lineWidth = 1;
             context.beginPath();
             context.moveTo(x, y);
-            context.lineTo(x+1, y+1);//隨機畫點
+            context.lineTo(x+random(-4,4), y+random(-4,4));//隨機畫點
             context.closePath();
             context.stroke();
         }
-        i = 0;
         for (var i = 0; i < n; i++) {
             x = random(0,canvas.width);
             y = random(0,canvas.height);
             context.lineWidth = 1;
             context.beginPath();
             context.moveTo(x, y);
-            context.lineTo(x+random(-random(0,canvas.width/2),random(0,canvas.width/2)), y+random(-random(0,canvas.width/2),random(0,canvas.width/2)));//隨機畫線
+            context.lineTo(x+random(-10,10), y+random(-10,10));//隨機畫點
             context.closePath();
             context.stroke();
         }
+        for (var i = 0; i < n/1.2; i++) {
+            x = random(0,canvas.width);
+            y = random(0,canvas.height);
+            context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(x, y);
+            context.lineTo(x+random(-30,30), y+random(-30,30));//隨機畫點
+            context.closePath();
+            context.stroke();
+        }
+        for (var i = 0; i < n/4; i++) {
+            x = random(0,canvas.width);
+            y = random(0,canvas.height);
+            context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(x, y);
+            context.lineTo(x+random(-40,40), y+random(-40,40));//隨機畫點
+            context.closePath();
+            context.stroke();
+        }
+        // i = 0;
+        // for (var i = 0; i < n; i++) {
+        //     x = random(0,canvas.width);
+        //     y = random(0,canvas.height);
+        //     context.lineWidth = 1;
+        //     context.beginPath();
+        //     context.moveTo(x, y);
+        //     context.lineTo(x+random(-random(0,canvas.width/3),random(0,canvas.width/3)), y+random(-random(0,canvas.width/3),random(0,canvas.width/3)));//隨機畫線
+        //     context.closePath();
+        //     context.stroke();
+        // }
+        // i = 0;
+        // for (var i = 0; i < n; i++) {
+        //     x = random(0, canvas.width);
+        //     y = random(0, canvas.height);
+        //     context.linewidth = 1;
+        //     context.beginpath();
+        //     context.moveto(x, y);
+        //     context.lineto(x + random(-random(0, 20), random(0, 20)), y + random(-random(0, 20), random(0, 20)));//隨機畫線
+        //     context.closepath();
+        //     context.stroke();
+        // }
         i = 0;
 
         context.font = fontWeight + ' ' + fontSize + 'px sans-serif';
@@ -71,6 +112,22 @@
             context.fillText('\n', 0, fontSize * (3 / 2) * i++, canvas.width);
         }
         var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        var pixels = imageData.data;
+        var i = 0;
+        for (var y = 0; y < canvas.height; y++){
+            for (var x = 0; x < canvas.width; x++)
+            {
+                var alpha=random(150,255)/200;
+                var beta=random(150,255)/200;
+                var gamma=random(150,255)/200;
+                pixels[i++] *= alpha;
+                pixels[i++] *= beta;
+                pixels[i++] *= gamma;
+                // pixels[i++] = Math.sqrt(random(200*200,255*255));
+                pixels[i++] = 255;
+            }
+        }
+        context.putImageData(imageData, 0, 0);
         var img = $("img");
         img.src = canvas.toDataURL("image/png");
     }
